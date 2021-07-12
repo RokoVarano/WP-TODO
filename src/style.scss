@@ -1,0 +1,73 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Otomanopee+One&family=Roboto:wght@300&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css');
+
+$font-p: 'Roboto', sans-serif;
+$font-h: 'Otomanopee One', sans-serif;
+$p-size: 1rem;
+$h-size: 3rem;
+$first-color: rgb(90, 17, 17);
+$second-color: rgb(221, 177, 148);
+$third-color: rgb(235, 226, 221);
+
+html,
+body,
+div,
+main,
+ul,
+li,
+p,
+h1,
+h3 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  color: $first-color;
+  font-family: $font-h;
+  margin: 0;
+  padding: 0;
+}
+
+main {
+  max-width: 600px;
+  height: auto;
+  box-shadow: 0.5rem 0.5rem;
+}
+
+li {
+  padding: 0.5rem;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: $third-color;
+  border: $first-color 1px solid;
+
+  div {
+    flex-direction: row;
+    justify-content: flex-start;
+
+    input {
+      margin-right: 0.5rem;
+    }
+  }
+}
+
+p {
+  font-size: $p-size;
+  width: auto;
+}
+
+h1 {
+  font-size: $h-size;
+}
+
+h3 {
+  font-size: $h-size / 2;
+}
+
+#clear {
+  background-color: $second-color;
+  justify-content: center;
+}
