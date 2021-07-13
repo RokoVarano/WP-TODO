@@ -7,6 +7,7 @@ $font-h: 'Otomanopee One', sans-serif;
 $p-size: 1rem;
 $h-size: 3rem;
 $first-color: rgb(90, 17, 17);
+$highlight-color: rgba(90, 17, 17, 0.342);
 $second-color: rgb(221, 177, 148);
 $third-color: rgb(235, 226, 221);
 
@@ -65,6 +66,10 @@ h1 {
 
 h3 {
   font-size: $h-size / 2;
+}
+
+.dragover {
+  background-color: $highlight-color;
 }
 
 #clear {

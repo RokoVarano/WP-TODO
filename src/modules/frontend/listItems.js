@@ -1,6 +1,8 @@
-import tasks from '../backend/fakeTasks';
+import {
+  dragstart, dragover, dragleave, drop, dragend,
+} from './dragndrop';
 
-const createList = () => {
+const createList = (tasks) => {
   const title = () => {
     const li = document.createElement('li');
     li.id = 'title-box';
@@ -34,14 +36,19 @@ const createList = () => {
 
   const item = (task) => {
     const li = document.createElement('li');
+    li.classList.add('draggable');
+    li.setAttribute('task', task.index);
+    li.draggable = true;
 
     const div = document.createElement('div');
 
     const input = document.createElement('input');
+    input.classList.add('completed');
     input.type = 'checkbox';
     input.name = 'completed';
 
     const p = document.createElement('p');
+    p.classList.add('description');
     p.textContent = task.description;
 
     div.appendChild(input);
@@ -51,6 +58,20 @@ const createList = () => {
 
     const i = document.createElement('i');
     i.classList.add('fas', 'fa-trash-alt');
+
+    li.addEventListener('dragstart', () => dragstart(li));
+
+    li.addEventListener('dragover', (e) => dragover(li, e));
+
+    li.addEventListener('dragleave', () => dragleave(li));
+
+    li.addEventListener('drop', () => {
+      drop(li);
+    });
+
+    li.addEventListener('dragend', () => {
+      dragend(li);
+    });
 
     li.appendChild(i);
 

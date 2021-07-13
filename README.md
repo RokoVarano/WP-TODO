@@ -27,8 +27,7 @@ Coming soon
   - In the clone folder, run npm run build
 ### Usage
 
-  - open http://localhost:8080/
-  - No posible interactions yet
+  - Drag a listed task on top of another to put it below.
 ### Run tests
   
   - No tests yet 
