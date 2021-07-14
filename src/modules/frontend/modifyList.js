@@ -1,19 +1,5 @@
 import { clearTasks, addTask, store } from '../backend/task';
 
-const dragstart = (element) => {
-  element.classList.add('flying');
-};
-
-const dragover = (element, e) => {
-  e.preventDefault();
-
-  element.classList.add('dragover');
-};
-
-const dragleave = (element) => {
-  element.classList.remove('dragover');
-};
-
 const remakeList = () => {
   const draggables = document.querySelectorAll('.draggable');
 
@@ -33,6 +19,20 @@ const remakeList = () => {
 
     store();
   });
+};
+
+const dragstart = (element) => {
+  element.classList.add('flying');
+};
+
+const dragover = (element, e) => {
+  e.preventDefault();
+
+  element.classList.add('dragover');
+};
+
+const dragleave = (element) => {
+  element.classList.remove('dragover');
 };
 
 const drop = (element) => {
