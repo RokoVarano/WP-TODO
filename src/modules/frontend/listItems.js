@@ -1,9 +1,11 @@
 import {
   dragstart, dragover, dragleave, drop, dragend,
 } from './dragndrop';
-import { updateTaskCompleted } from '../backend/task';
+import { updateTaskCompleted, inputCreateTask, tasks } from '../backend/task';
 
-const createList = (tasks) => {
+const createList = (tasklist) => {
+  const ul = document.querySelector('ul');
+
   const title = () => {
     const li = document.createElement('li');
     li.id = 'title-box';
@@ -21,19 +23,7 @@ const createList = (tasks) => {
     return li;
   };
 
-  const addItem = () => {
-    const li = document.createElement('li');
-    li.id = 'new-item-box';
-
-    const input = document.createElement('input');
-    input.type = 'text';
-    input.placeholder = 'Add to your list...';
-    input.id = 'new-item';
-
-    li.appendChild(input);
-
-    return li;
-  };
+  ul.appendChild(title());
 
   const item = (task) => {
     const li = document.createElement('li');
@@ -89,13 +79,33 @@ const createList = (tasks) => {
     return li;
   };
 
-  const ul = document.querySelector('ul');
+  const addItem = () => {
+    const li = document.createElement('li');
+    li.id = 'new-item-box';
 
-  ul.appendChild(title());
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.placeholder = 'Add to your list...';
+    input.id = 'new-item';
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        inputCreateTask(input.value);
+        ul.appendChild(item(tasks[tasks.length - 1]));
+
+        const clear = document.getElementById('clear');
+        ul.appendChild(clear);
+      }
+    });
+
+    li.appendChild(input);
+
+    return li;
+  };
+
   ul.appendChild(addItem());
 
-  tasks.sort((a, b) => ((a.index > b.index) ? 1 : -1));
-  tasks.forEach((task) => ul.appendChild(item(task)));
+  tasklist.sort((a, b) => ((a.index > b.index) ? 1 : -1));
+  tasklist.forEach((task) => ul.appendChild(item(task)));
 
   ul.appendChild(clearComplete());
 };

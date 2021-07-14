@@ -1,4 +1,4 @@
-import { clearTasks, addTasks, store } from '../backend/task';
+import { clearTasks, addTask, store } from '../backend/task';
 
 const dragstart = (element) => {
   element.classList.add('flying');
@@ -33,7 +33,7 @@ const drop = (element) => {
     const completed = draggable.getElementsByClassName('completed')[0].checked;
     const index = draggable.getAttribute('task');
 
-    addTasks(description, completed, index);
+    addTask(description, completed, index);
 
     store();
   });
