@@ -10,6 +10,9 @@ Features:
 - Draggable list items
 - LocalStorage saving
 - Checkbox functionality
+- Add or remove items
+- Edit item description
+- Clear all completed functionality
 ## Built With
 
 - Javascript
@@ -33,6 +36,10 @@ Coming soon
   - Drag and drop list elements to sort them out.
   - Checkbox can be checked.
   - Status is saved to LocalStorage. Refresh the page to verify.
+  - Write a new task's name in the text input box and press Enter to create a new task
+  - Click on the task's description to modify it.
+  - Click on the trash bin to remove a task
+  - Click on the 'Clear all completed' section to remove all completed tasks
 ### Run tests
   
   - No tests yet 
