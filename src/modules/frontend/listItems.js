@@ -47,7 +47,7 @@ const createList = (tasks) => {
     input.classList.add('completed');
     input.type = 'checkbox';
     input.name = 'completed';
-    input.addEventListener('change', () => updateTask(task, input.checked));
+    input.addEventListener('click', () => updateTask(task, input.checked));
 
     const p = document.createElement('p');
     p.classList.add('description');
