@@ -20,7 +20,7 @@ Features:
 
 ## Live Demo
 
-Coming soon
+https://mystifying-engelbart-036cbb.netlify.app/
 
 ## Getting Started
 ### Prerequisites
