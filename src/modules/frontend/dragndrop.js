@@ -14,11 +14,7 @@ const dragleave = (element) => {
   element.classList.remove('dragover');
 };
 
-const drop = (element) => {
-  const flying = document.querySelector('.flying');
-
-  element.before(flying);
-
+const remakeList = () => {
   const draggables = document.querySelectorAll('.draggable');
 
   let i = 0;
@@ -37,6 +33,14 @@ const drop = (element) => {
 
     store();
   });
+};
+
+const drop = (element) => {
+  const flying = document.querySelector('.flying');
+
+  element.before(flying);
+
+  remakeList();
 
   element.classList.remove('dragover');
 };
@@ -46,5 +50,5 @@ const dragend = (element) => {
 };
 
 export {
-  dragstart, dragover, dragleave, drop, dragend,
+  dragstart, dragover, dragleave, drop, dragend, remakeList,
 };
