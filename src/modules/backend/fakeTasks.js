@@ -11,9 +11,16 @@ const clearTasks = () => {
 };
 
 const addTasks = (description, completed, index) => {
-  tasks.push({ description, completed, index: parseInt(index, 2) });
+  tasks.push({ description, completed, index: parseInt(index, 10) });
 };
 
-export { tasks, clearTasks, addTasks };
+const store = () => {
+  const json = JSON.stringify(tasks);
+  localStorage.setItem('tasks', json);
+};
+
+export {
+  tasks, clearTasks, addTasks, store,
+};
 
 /* eslint-enable import/no-mutable-exports */

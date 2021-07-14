@@ -1,4 +1,4 @@
-import { clearTasks, addTasks } from '../backend/fakeTasks';
+import { clearTasks, addTasks, store } from '../backend/fakeTasks';
 
 const dragstart = (element) => {
   element.classList.add('flying');
@@ -34,6 +34,8 @@ const drop = (element) => {
     const index = draggable.getAttribute('task');
 
     addTasks(description, completed, index);
+
+    store();
   });
 
   element.classList.remove('dragover');
