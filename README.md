@@ -6,7 +6,10 @@
 
 ![screenshot](./app_screenshot.png)
 
-
+Features:
+- Draggable list items
+- LocalStorage saving
+- Checkbox functionality
 ## Built With
 
 - Javascript
@@ -21,13 +24,13 @@ Coming soon
 
   - Node.js
 ### Setup
-  - Clone the following repository: https://github.com/RokoVarano/WP-TODO (branch feature/list_structure)
+  - Clone the following repository: https://github.com/RokoVarano/WP-TODO (branch feature/day3_DragNDrop)
 ### Install
 
   - In the clone folder, run npm run build
 ### Usage
 
-  - Drag a listed task on top of another to put it below.
+  - Drag an 
 ### Run tests
   
   - No tests yet 
