@@ -1,6 +1,6 @@
 import {
   dragstart, dragover, dragleave, drop, dragend, remakeList,
-} from './dragndrop';
+} from './modifyList';
 import {
   updateTaskCompleted, inputCreateTask, tasks, updateTaskDescription,
 } from '../backend/task';
@@ -84,6 +84,20 @@ const createList = (tasklist) => {
 
     li.textContent = 'Clear all completed';
     li.id = 'clear';
+    li.addEventListener('click', () => {
+      const draggables = [...document.querySelectorAll('.draggable')];
+
+      const newList = draggables.filter((draggable) => draggable.getElementsByClassName('completed')[0].checked === false);
+
+      draggables.forEach((draggable) => ul.removeChild(draggable));
+
+      newList.forEach((item) => ul.appendChild(item));
+
+      remakeList();
+
+      const clear = document.getElementById('clear');
+      ul.appendChild(clear);
+    });
 
     return li;
   };
