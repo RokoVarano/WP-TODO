@@ -27,12 +27,11 @@ const store = () => {
   localStorage.setItem('tasks', json);
 };
 
-const updateTaskCompleted = (task, check) => {
-  const taskInTasks = tasks.find((t) => t.description === task.description);
+const updateTaskCompleted = (index, check) => {
+  const taskInTasks = tasks.find((t) => t.index === index);
 
   taskInTasks.completed = check;
 
-  task.completed = check;
   store();
 };
 

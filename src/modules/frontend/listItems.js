@@ -1,5 +1,5 @@
 import {
-  dragstart, dragover, dragleave, drop, dragend,
+  dragstart, dragover, dragleave, drop, dragend, remakeList,
 } from './dragndrop';
 import {
   updateTaskCompleted, inputCreateTask, tasks, updateTaskDescription,
@@ -39,7 +39,7 @@ const createList = (tasklist) => {
     input.classList.add('completed');
     input.type = 'checkbox';
     input.name = 'completed';
-    input.addEventListener('click', () => updateTaskCompleted(task, input.checked));
+    input.addEventListener('click', () => updateTaskCompleted(parseInt(li.getAttribute('task'), 10), input.checked));
 
     const p = document.createElement('p');
     p.classList.add('description');
@@ -54,6 +54,11 @@ const createList = (tasklist) => {
 
     const i = document.createElement('i');
     i.classList.add('fas', 'fa-trash-alt');
+    i.addEventListener('click', () => {
+      ul.removeChild(li);
+
+      remakeList();
+    });
 
     li.addEventListener('dragstart', () => dragstart(li));
 
@@ -98,6 +103,8 @@ const createList = (tasklist) => {
 
         const clear = document.getElementById('clear');
         ul.appendChild(clear);
+
+        input.value = '';
       }
     });
 
