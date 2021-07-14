@@ -1,7 +1,9 @@
 import {
   dragstart, dragover, dragleave, drop, dragend,
 } from './dragndrop';
-import { updateTaskCompleted, inputCreateTask, tasks } from '../backend/task';
+import {
+  updateTaskCompleted, inputCreateTask, tasks, updateTaskDescription,
+} from '../backend/task';
 
 const createList = (tasklist) => {
   const ul = document.querySelector('ul');
@@ -41,7 +43,9 @@ const createList = (tasklist) => {
 
     const p = document.createElement('p');
     p.classList.add('description');
+    p.contentEditable = 'true';
     p.textContent = task.description;
+    p.addEventListener('input', () => updateTaskDescription(parseInt(li.getAttribute('task'), 10), p.textContent));
 
     div.appendChild(input);
     div.appendChild(p);

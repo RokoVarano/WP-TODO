@@ -2,6 +2,18 @@
 
 let tasks = [];
 
+const loadTasks = () => {
+  let load = JSON.parse(localStorage.getItem('tasks'));
+
+  if (load == null) {
+    load = [];
+  }
+
+  tasks = load;
+
+  return tasks;
+};
+
 const clearTasks = () => {
   tasks = [];
 };
@@ -24,6 +36,14 @@ const updateTaskCompleted = (task, check) => {
   store();
 };
 
+const updateTaskDescription = (index, description) => {
+  const taskInTasks = tasks.find((t) => t.index === index);
+
+  taskInTasks.description = description;
+
+  store();
+};
+
 const inputCreateTask = (description) => {
   let index = 0;
 
@@ -36,7 +56,14 @@ const inputCreateTask = (description) => {
 };
 
 export {
-  tasks, clearTasks, addTask, store, updateTaskCompleted, inputCreateTask,
+  tasks,
+  clearTasks,
+  addTask,
+  store,
+  updateTaskCompleted,
+  inputCreateTask,
+  updateTaskDescription,
+  loadTasks,
 };
 
 /* eslint-enable import/no-mutable-exports */
