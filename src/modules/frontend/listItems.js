@@ -1,7 +1,7 @@
 import {
   dragstart, dragover, dragleave, drop, dragend,
 } from './dragndrop';
-import updateTask from './completed';
+import { updateTaskCompleted } from '../backend/task';
 
 const createList = (tasks) => {
   const title = () => {
@@ -47,7 +47,7 @@ const createList = (tasks) => {
     input.classList.add('completed');
     input.type = 'checkbox';
     input.name = 'completed';
-    input.addEventListener('click', () => updateTask(task, input.checked));
+    input.addEventListener('click', () => updateTaskCompleted(task, input.checked));
 
     const p = document.createElement('p');
     p.classList.add('description');
