@@ -30,7 +30,9 @@ Coming soon
   - In the clone folder, run npm run build
 ### Usage
 
-  - Drag an 
+  - Drag and drop list elements to sort them out.
+  - Checkbox can be checked.
+  - Status is saved to LocalStorage. Refresh the page to verify.
 ### Run tests
   
   - No tests yet 

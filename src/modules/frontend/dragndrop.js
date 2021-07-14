@@ -1,4 +1,4 @@
-import { clearTasks, addTasks, store } from '../backend/fakeTasks';
+import { clearTasks, addTasks, store } from '../backend/task';
 
 const dragstart = (element) => {
   element.classList.add('flying');
