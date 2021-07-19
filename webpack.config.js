@@ -11,9 +11,9 @@ const stylesHandler = isProduction
   : 'style-loader';
 
 const config = {
-  entry: './index.js',
+  entry: './src/index.js',
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, ''),
   },
   devServer: {
     open: true,
@@ -21,7 +21,7 @@ const config = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './index.html',
+      template: './src/index.html',
     }),
 
     // Add your plugins here
