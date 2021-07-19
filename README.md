@@ -20,7 +20,7 @@ Features:
 
 ## Live Demo
 
-https://mystifying-engelbart-036cbb.netlify.app/
+https://rokovarano.github.io/WP-TODO/
 
 ## Getting Started
 ### Prerequisites
