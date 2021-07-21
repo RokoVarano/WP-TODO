@@ -42,7 +42,8 @@ https://rokovarano.github.io/WP-TODO/
   - Click on the 'Clear all completed' section to remove all completed tasks
 ### Run tests
   
-  - No tests yet 
+  - [Install Jest](https://jestjs.io/docs/getting-started)
+  - in terminal, run: npx jest
 
 ## Authors
 
