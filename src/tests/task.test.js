@@ -2,27 +2,34 @@
  * @jest-environment jsdom
  */
 
-import { tasks, addTask } from '../modules/backend/task';
+import { tasks, addTask, inputCreateTask } from '../modules/backend/task';
 import { remakeList } from '../modules/frontend/modifyList';
+import { item } from '../modules/frontend/listItems';
 
 describe('Task list management methods', () => {
   const task = {
     description: 'Go for a walk',
     completed: false,
-    index: 0
-  }
+    index: 0,
+  };
   const task2 = {
     description: 'Go for another walk',
     completed: false,
-    index: 1
-  }
+    index: 1,
+  };
+
+  const addTaskString = 'Go to the Vet';
+
+  const ulElement = document.createElement('ul');
 
   test('it creates an object with the corresponding parameters', () => {
-    const add = addTask(task.description, task.completed, task.index);
+    inputCreateTask(addTaskString);
 
-    expect(add.description).toBe(task.description);
-    expect(add.completed).toBe(task.completed);
-    expect(add.index).toBe(task.index);
+    expect(tasks[tasks.length - 1].description).toBe(addTaskString);
+
+    ulElement.appendChild(item(tasks[tasks.length - 1]));
+
+    expect(ulElement.innerHTML.includes(addTaskString)).toBe(true);
   });
 
   test('it adds and deletes an item from the To Do List', () => {
@@ -30,7 +37,7 @@ describe('Task list management methods', () => {
     const addedTask2 = addTask(task2.description, task2.completed, task2.index);
 
     /* Add tasks to the DOM */
-    const ulElement = document.createElement('ul');
+    ulElement.innerHTML = '';
     const addTaskToDOM = (task) => {
       const liElement = document.createElement('li');
 
@@ -44,7 +51,7 @@ describe('Task list management methods', () => {
       const p = document.createElement('p');
       p.classList.add('description');
       p.textContent = task.description;
-      
+
       liElement.appendChild(input);
       liElement.appendChild(p);
       ulElement.appendChild(liElement);
@@ -55,7 +62,7 @@ describe('Task list management methods', () => {
 
     document.body.appendChild(ulElement);
 
-    ulElement.removeChild(ulElement.childNodes[0]); 
+    ulElement.removeChild(ulElement.childNodes[0]);
 
     remakeList();
 
