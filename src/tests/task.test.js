@@ -98,24 +98,40 @@ describe('item updates', () => {
     const task = {
       description: 'Go for a walk',
       completed: false,
-      index: 5,
+      index: 0,
     };
     const task2 = {
       description: 'Go for another walk',
       completed: false,
-      index: 2,
+      index: 1,
     };
 
     const ulElement = document.createElement('ul');
     ulElement.appendChild(item(task));
     ulElement.appendChild(item(task2));
-
-    expect(tasks[0].index).toBe('5');
-    expect(tasks[1].index).toBe('2');
+    
+    document.body.appendChild(ulElement);
 
     remakeList();
 
     expect(tasks[0].index).toBe('0');
     expect(tasks[1].index).toBe('1');
+
+    const taskElement = ulElement.childNodes[0];
+    const taskElement2 = ulElement.childNodes[1];
+
+    const tempIndex = taskElement.getAttribute('task');
+    taskElement.setAttribute('task', taskElement2.getAttribute('task'));
+    taskElement2.setAttribute('task', tempIndex);
+
+    remakeList();
+
+    const firstTask = tasks[0];
+    const secondTask = tasks[1];
+
+    expect(firstTask.index).toBe('0');
+    expect(firstTask.description).toBe('Go for another walk');
+    expect(secondTask.index).toBe('1');
+    expect(secondTask.description).toBe('Go for a walk');
   });
 });
