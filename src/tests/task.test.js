@@ -25,9 +25,13 @@ describe('Task list management methods', () => {
   const ulElement = document.createElement('ul');
 
   test('it creates an object with the corresponding parameters', () => {
+    localStorage.clear();
     inputCreateTask(addTaskString);
 
     expect(tasks[tasks.length - 1].description).toBe(addTaskString);
+
+    const storage = JSON.parse(localStorage.getItem('tasks'));
+    expect(storage[storage.length - 1].description).toBe(addTaskString);
 
     ulElement.appendChild(item(tasks[tasks.length - 1]));
 
@@ -35,6 +39,7 @@ describe('Task list management methods', () => {
   });
 
   test('it adds and deletes an item from the To Do List', () => {
+    localStorage.clear();
     const addedTask = addTask(task.description, task.completed, task.index);
     const addedTask2 = addTask(task2.description, task2.completed, task2.index);
 
@@ -70,6 +75,10 @@ describe('Task list management methods', () => {
 
     expect(tasks.length).toBe(1);
     expect(tasks[0].description).toBe(addedTask2.description);
+
+    const storage = JSON.parse(localStorage.getItem('tasks'));
+    expect(storage.length).toBe(1);
+    expect(storage[0].description).toBe(addedTask2.description);
   });
 });
 
