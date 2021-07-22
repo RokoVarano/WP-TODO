@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 
-import { tasks, addTask, inputCreateTask } from '../modules/backend/task';
+import { tasks, addTask, inputCreateTask, updateTaskDescription } from '../modules/backend/task';
 import { remakeList } from '../modules/frontend/modifyList';
 import { item } from '../modules/frontend/listItems';
 
@@ -68,5 +68,15 @@ describe('Task list management methods', () => {
 
     expect(tasks.length).toBe(1);
     expect(tasks[0].description).toBe(addedTask2.description);
+  });
+});
+
+describe('item updates', () => {
+  test('it changes the name of the task description', () => {
+    addTask('original description', false, 0);
+
+    updateTaskDescription(0, 'New description');
+
+    expect(tasks[tasks.length - 1].description).toBe('New description');
   });
 });
