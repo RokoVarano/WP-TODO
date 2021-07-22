@@ -5,6 +5,60 @@ import {
   updateTaskCompleted, inputCreateTask, tasks, updateTaskDescription,
 } from '../backend/task';
 
+const item = (task) => {
+  const li = document.createElement('li');
+  li.classList.add('draggable');
+  li.setAttribute('task', task.index);
+  li.draggable = true;
+
+  const ul = document.getElementsByTagName('ul');
+
+  const div = document.createElement('div');
+
+  const input = document.createElement('input');
+  input.classList.add('completed');
+  input.type = 'checkbox';
+  input.name = 'completed';
+  input.addEventListener('click', () => updateTaskCompleted(parseInt(li.getAttribute('task'), 10), input.checked));
+
+  const p = document.createElement('p');
+  p.classList.add('description');
+  p.contentEditable = 'true';
+  p.textContent = task.description;
+  p.addEventListener('input', () => updateTaskDescription(parseInt(li.getAttribute('task'), 10), p.textContent));
+
+  div.appendChild(input);
+  div.appendChild(p);
+
+  li.appendChild(div);
+
+  const i = document.createElement('i');
+  i.classList.add('fas', 'fa-trash-alt');
+  i.addEventListener('click', () => {
+    ul.removeChild(li);
+
+    remakeList();
+  });
+
+  li.addEventListener('dragstart', () => dragstart(li));
+
+  li.addEventListener('dragover', (e) => dragover(li, e));
+
+  li.addEventListener('dragleave', () => dragleave(li));
+
+  li.addEventListener('drop', () => {
+    drop(li);
+  });
+
+  li.addEventListener('dragend', () => {
+    dragend(li);
+  });
+
+  li.appendChild(i);
+
+  return li;
+};
+
 const createList = (tasklist) => {
   const ul = document.querySelector('ul');
 
@@ -26,58 +80,6 @@ const createList = (tasklist) => {
   };
 
   ul.appendChild(title());
-
-  const item = (task) => {
-    const li = document.createElement('li');
-    li.classList.add('draggable');
-    li.setAttribute('task', task.index);
-    li.draggable = true;
-
-    const div = document.createElement('div');
-
-    const input = document.createElement('input');
-    input.classList.add('completed');
-    input.type = 'checkbox';
-    input.name = 'completed';
-    input.addEventListener('click', () => updateTaskCompleted(parseInt(li.getAttribute('task'), 10), input.checked));
-
-    const p = document.createElement('p');
-    p.classList.add('description');
-    p.contentEditable = 'true';
-    p.textContent = task.description;
-    p.addEventListener('input', () => updateTaskDescription(parseInt(li.getAttribute('task'), 10), p.textContent));
-
-    div.appendChild(input);
-    div.appendChild(p);
-
-    li.appendChild(div);
-
-    const i = document.createElement('i');
-    i.classList.add('fas', 'fa-trash-alt');
-    i.addEventListener('click', () => {
-      ul.removeChild(li);
-
-      remakeList();
-    });
-
-    li.addEventListener('dragstart', () => dragstart(li));
-
-    li.addEventListener('dragover', (e) => dragover(li, e));
-
-    li.addEventListener('dragleave', () => dragleave(li));
-
-    li.addEventListener('drop', () => {
-      drop(li);
-    });
-
-    li.addEventListener('dragend', () => {
-      dragend(li);
-    });
-
-    li.appendChild(i);
-
-    return li;
-  };
 
   const clearComplete = () => {
     const li = document.createElement('li');
@@ -135,4 +137,4 @@ const createList = (tasklist) => {
   ul.appendChild(clearComplete());
 };
 
-export default createList;
+export { createList, item };
