@@ -75,24 +75,33 @@ describe('Task list management methods', () => {
 
 describe('item updates', () => {
   test('it changes the name of the task description', () => {
+    localStorage.clear();
     const nextIndex = tasks[tasks.length - 1].index + 1;
     addTask('original description', false, nextIndex);
 
     updateTaskDescription(nextIndex, 'New description');
 
     expect(tasks[tasks.length - 1].description).toBe('New description');
+
+    const storage = JSON.parse(localStorage.getItem('tasks'));
+    expect(storage[storage.length - 1].description).toBe('New description');
   });
 
   test('it updates the completed status', () => {
+    localStorage.clear();
     const nextIndex = tasks[tasks.length - 1].index + 1;
     addTask('Pending task', false, nextIndex);
 
     updateTaskCompleted(nextIndex, true);
 
     expect(tasks[tasks.length - 1].completed).toBe(true);
+
+    const storage = JSON.parse(localStorage.getItem('tasks'));
+    expect(storage[storage.length - 1].completed).toBe(true);
   });
 
   test('it updates the index according to order', () => {
+    localStorage.clear();
     clearTasks();
 
     const task = {
@@ -133,10 +142,17 @@ describe('item updates', () => {
     expect(firstTask.description).toBe('Go for another walk');
     expect(secondTask.index).toBe('1');
     expect(secondTask.description).toBe('Go for a walk');
+
+    const storage = JSON.parse(localStorage.getItem('tasks'));
+    expect(storage[0].index).toBe('0');
+    expect(storage[0].description).toBe('Go for another walk');
+    expect(storage[1].index).toBe('1');
+    expect(storage[1].description).toBe('Go for a walk');
   });
 
   test('it removes the tasks from the DOM and from the array that are checked', () => {
     clearTasks();
+    localStorage.clear();
     document.body.innerHTML = '';
     const ul = document.createElement('ul');
     document.body.appendChild(ul);
@@ -167,5 +183,9 @@ describe('item updates', () => {
 
     [...checkboxes].forEach((checkbox) => expect(checkbox.checked).toBe(false));
     expect([...checkboxes].length).toBe(1);
+
+    const storage = JSON.parse(localStorage.getItem('tasks'));
+    storage.forEach((item) => expect(item.completed).toBe(false));
+    expect(storage.length).toBe(1);
   });
 });
