@@ -2,7 +2,9 @@
  * @jest-environment jsdom
  */
 
-import { tasks, addTask, inputCreateTask, updateTaskDescription, updateTaskCompleted } from '../modules/backend/task';
+import {
+  tasks, addTask, inputCreateTask, updateTaskDescription, updateTaskCompleted, clearTasks,
+} from '../modules/backend/task';
 import { remakeList } from '../modules/frontend/modifyList';
 import { item } from '../modules/frontend/listItems';
 
@@ -88,5 +90,32 @@ describe('item updates', () => {
     updateTaskCompleted(nextIndex, true);
 
     expect(tasks[tasks.length - 1].completed).toBe(true);
+  });
+
+  test('it updates the index according to order', () => {
+    clearTasks();
+
+    const task = {
+      description: 'Go for a walk',
+      completed: false,
+      index: 5,
+    };
+    const task2 = {
+      description: 'Go for another walk',
+      completed: false,
+      index: 2,
+    };
+
+    const ulElement = document.createElement('ul');
+    ulElement.appendChild(item(task));
+    ulElement.appendChild(item(task2));
+
+    expect(tasks[0].index).toBe('5');
+    expect(tasks[1].index).toBe('2');
+
+    remakeList();
+
+    expect(tasks[0].index).toBe('0');
+    expect(tasks[1].index).toBe('1');
   });
 });
