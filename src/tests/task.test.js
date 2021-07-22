@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 
-import { tasks, addTask, inputCreateTask, updateTaskDescription } from '../modules/backend/task';
+import { tasks, addTask, inputCreateTask, updateTaskDescription, updateTaskCompleted } from '../modules/backend/task';
 import { remakeList } from '../modules/frontend/modifyList';
 import { item } from '../modules/frontend/listItems';
 
@@ -73,10 +73,20 @@ describe('Task list management methods', () => {
 
 describe('item updates', () => {
   test('it changes the name of the task description', () => {
-    addTask('original description', false, 0);
+    const nextIndex = tasks[tasks.length - 1].index + 1;
+    addTask('original description', false, nextIndex);
 
-    updateTaskDescription(0, 'New description');
+    updateTaskDescription(nextIndex, 'New description');
 
     expect(tasks[tasks.length - 1].description).toBe('New description');
+  });
+
+  test('it updates the completed status', () => {
+    const nextIndex = tasks[tasks.length - 1].index + 1;
+    addTask('Pending task', false, nextIndex);
+
+    updateTaskCompleted(nextIndex, true);
+
+    expect(tasks[tasks.length - 1].completed).toBe(true);
   });
 });
