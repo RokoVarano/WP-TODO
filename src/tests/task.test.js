@@ -5,8 +5,8 @@
 import {
   tasks, addTask, inputCreateTask, updateTaskDescription, updateTaskCompleted, clearTasks,
 } from '../modules/backend/task';
-import { remakeList } from '../modules/frontend/modifyList';
-import { item, createList } from '../modules/frontend/listItems';
+import { remakeList, clearCompleted } from '../modules/frontend/modifyList';
+import { item } from '../modules/frontend/listItems';
 
 describe('Task list management methods', () => {
   const task = {
@@ -138,10 +138,16 @@ describe('item updates', () => {
   test('it removes the tasks from the DOM and from the array that are checked', () => {
     clearTasks();
     document.body.innerHTML = '';
+    const ul = document.createElement('ul');
+    document.body.appendChild(ul);
+    const clear = document.createElement('li');
+    clear.id = 'clear';
+    document.body.appendChild(ul);
+    ul.appendChild(clear);
 
     const task = {
       description: 'Task 1',
-      completed: false,
+      completed: true,
       index: 0,
     };
     const task2 = {
@@ -149,34 +155,17 @@ describe('item updates', () => {
       completed: false,
       index: 1,
     };
-    const task3 = {
-      description: 'Task 3',
-      completed: false,
-      index: 2,
-    };
-    const task4 = {
-      description: 'Task 4',
-      completed: false,
-      index: 3,
-    };
 
-    tasks.push(task);
-    tasks.push(task2);
-    tasks.push(task3);
-    tasks.push(task4);
+    ul.appendChild(item(task));
+    ul.appendChild(item(task2));
 
-    createList(tasks);
-
-    const clearButton = document.getElementById('clear');
-    clearButton.click();
-
-    tasks.forEach((task) => expect(task.index).toBe(false));
-
-    const draggables = document.getElementsByClassName('draggable');
-
-    expect(draggables.length).toBe(2);
-
+    remakeList();
     const checkboxes = document.getElementsByClassName('completed');
-    checkboxes.forEach((checkbox) => expect(checkbox.checked).toBe(false));
+    checkboxes[0].checked = true;
+
+    clearCompleted(ul);
+
+    [...checkboxes].forEach((checkbox) => expect(checkbox.checked).toBe(false));
+    expect([...checkboxes].length).toBe(1);
   });
 });
