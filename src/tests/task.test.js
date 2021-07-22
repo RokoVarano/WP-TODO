@@ -6,7 +6,7 @@ import {
   tasks, addTask, inputCreateTask, updateTaskDescription, updateTaskCompleted, clearTasks,
 } from '../modules/backend/task';
 import { remakeList } from '../modules/frontend/modifyList';
-import { item } from '../modules/frontend/listItems';
+import { item, createList } from '../modules/frontend/listItems';
 
 describe('Task list management methods', () => {
   const task = {
@@ -109,7 +109,7 @@ describe('item updates', () => {
     const ulElement = document.createElement('ul');
     ulElement.appendChild(item(task));
     ulElement.appendChild(item(task2));
-    
+
     document.body.appendChild(ulElement);
 
     remakeList();
@@ -133,5 +133,50 @@ describe('item updates', () => {
     expect(firstTask.description).toBe('Go for another walk');
     expect(secondTask.index).toBe('1');
     expect(secondTask.description).toBe('Go for a walk');
+  });
+
+  test('it removes the tasks from the DOM and from the array that are checked', () => {
+    clearTasks();
+    document.body.innerHTML = '';
+
+    const task = {
+      description: 'Task 1',
+      completed: false,
+      index: 0,
+    };
+    const task2 = {
+      description: 'Task 2',
+      completed: false,
+      index: 1,
+    };
+    const task3 = {
+      description: 'Task 3',
+      completed: false,
+      index: 2,
+    };
+    const task4 = {
+      description: 'Task 4',
+      completed: false,
+      index: 3,
+    };
+
+    tasks.push(task);
+    tasks.push(task2);
+    tasks.push(task3);
+    tasks.push(task4);
+
+    createList(tasks);
+
+    const clearButton = document.getElementById('clear');
+    clearButton.click();
+
+    tasks.forEach((task) => expect(task.index).toBe(false));
+
+    const draggables = document.getElementsByClassName('draggable');
+
+    expect(draggables.length).toBe(2);
+
+    const checkboxes = document.getElementsByClassName('completed');
+    checkboxes.forEach((checkbox) => expect(checkbox.checked).toBe(false));
   });
 });
